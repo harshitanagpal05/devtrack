@@ -1,10 +1,5 @@
 import DiscussionsWidget from "@/components/DiscussionsWidget";
-import ActivityRingChart from "@/components/ActivityRingChart";
-import ContributionGraph from "@/components/ContributionGraph";
-import ContributionHeatmap from "@/components/ContributionHeatmap";
-import PRMetrics from "@/components/PRMetrics";
 import CommunityMetrics from "@/components/CommunityMetrics";
-import PRBreakdownChart from "@/components/PRBreakdownChart";
 import GoalTracker from "@/components/GoalTracker";
 import DashboardHeader from "@/components/DashboardHeader";
 import StreakTracker from "@/components/StreakTracker";
@@ -12,8 +7,6 @@ import TopRepos from "@/components/TopRepos";
 import PinnedRepos from "@/components/PinnedRepos";
 import InactiveRepositoriesCard from "@/components/InactiveRepositoriesCard";
 import LanguageBreakdown from "@/components/LanguageBreakdown";
-import CommitTimeChart from "@/components/CommitTimeChart";
-import PRReviewTrendChart from "@/components/PRReviewTrendChart";
 import CIAnalytics from "@/components/CIAnalytics";
 import IssueMetrics from "@/components/IssueMetrics";
 import StreakAtRiskBanner from "@/components/StreakAtRiskBanner";
@@ -37,6 +30,41 @@ const CodingActivityInsightsCard = dynamic(
 );
 
 const FriendComparison = dynamic(() => import("@/components/FriendComparison"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const ActivityRingChart = dynamic(() => import("@/components/ActivityRingChart"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const ContributionGraph = dynamic(() => import("@/components/ContributionGraph"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const ContributionHeatmap = dynamic(() => import("@/components/ContributionHeatmap"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const PRMetrics = dynamic(() => import("@/components/PRMetrics"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const PRBreakdownChart = dynamic(() => import("@/components/PRBreakdownChart"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const CommitTimeChart = dynamic(() => import("@/components/CommitTimeChart"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
+
+const PRReviewTrendChart = dynamic(() => import("@/components/PRReviewTrendChart"), {
   ssr: false,
   loading: () => <SkeletonCard />,
 });
