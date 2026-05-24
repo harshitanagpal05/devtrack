@@ -24,6 +24,20 @@ const SkeletonCard = () => (
   </div>
 );
 
+const ContributionGraphSkeleton = () => (
+  <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm">
+    <h2 className="text-lg font-semibold text-[var(--foreground)]">Your Commits</h2>
+    <div className="mt-3 h-40 rounded bg-[var(--card-muted)] animate-pulse" />
+  </div>
+);
+
+const PRMetricsSkeleton = () => (
+  <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm">
+    <h2 className="text-lg font-semibold text-[var(--card-foreground)]">PR Analytics</h2>
+    <div className="mt-3 h-40 rounded bg-[var(--card-muted)] animate-pulse" />
+  </div>
+);
+
 const CodingActivityInsightsCard = dynamic(
   () => import("@/components/CodingActivityInsightsCard"),
   { ssr: false, loading: () => <SkeletonCard /> }
@@ -41,7 +55,7 @@ const ActivityRingChart = dynamic(() => import("@/components/ActivityRingChart")
 
 const ContributionGraph = dynamic(() => import("@/components/ContributionGraph"), {
   ssr: false,
-  loading: () => <SkeletonCard />,
+  loading: () => <ContributionGraphSkeleton />,
 });
 
 const ContributionHeatmap = dynamic(() => import("@/components/ContributionHeatmap"), {
@@ -51,7 +65,7 @@ const ContributionHeatmap = dynamic(() => import("@/components/ContributionHeatm
 
 const PRMetrics = dynamic(() => import("@/components/PRMetrics"), {
   ssr: false,
-  loading: () => <SkeletonCard />,
+  loading: () => <PRMetricsSkeleton />,
 });
 
 const PRBreakdownChart = dynamic(() => import("@/components/PRBreakdownChart"), {
