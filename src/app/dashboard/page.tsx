@@ -13,12 +13,33 @@ import PinnedRepos from "@/components/PinnedRepos";
 import InactiveRepositoriesCard from "@/components/InactiveRepositoriesCard";
 import LanguageBreakdown from "@/components/LanguageBreakdown";
 import CommitTimeChart from "@/components/CommitTimeChart";
-import CodingActivityInsightsCard from "@/components/CodingActivityInsightsCard";
 import PRReviewTrendChart from "@/components/PRReviewTrendChart";
 import CIAnalytics from "@/components/CIAnalytics";
 import IssueMetrics from "@/components/IssueMetrics";
 import StreakAtRiskBanner from "@/components/StreakAtRiskBanner";
-import FriendComparison from "@/components/FriendComparison";
+import dynamic from "next/dynamic";
+
+const SkeletonCard = () => (
+  <div
+    role="status"
+    aria-busy="true"
+    aria-live="polite"
+    className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm"
+  >
+    <div className="h-6 w-48 bg-[var(--card-muted)] rounded mb-4 animate-pulse" />
+    <div className="h-40 bg-[var(--card-muted)] rounded animate-pulse" />
+  </div>
+);
+
+const CodingActivityInsightsCard = dynamic(
+  () => import("@/components/CodingActivityInsightsCard"),
+  { ssr: false, loading: () => <SkeletonCard /> }
+);
+
+const FriendComparison = dynamic(() => import("@/components/FriendComparison"), {
+  ssr: false,
+  loading: () => <SkeletonCard />,
+});
 import WeeklySummaryCard from "@/components/WeeklySummaryCard";
 import { AIMentorWidget } from "@/components/AIMentorWidget";
 import ExportButton from "@/components/ExportButton";
