@@ -93,6 +93,10 @@ export default async function HomePage() {
                 <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
                   {feature.description}
                 </p>
+
+                <p className="mt-3 text-xs text-[var(--muted-foreground)] opacity-70">
+                  Sign in to explore this feature
+                </p>
               </div>
             ))}
           </div>
