@@ -50,7 +50,6 @@ export default function SignInPage() {
       }}
     >
       <MouseSpotlight />
-
       <div
         aria-hidden
         style={{

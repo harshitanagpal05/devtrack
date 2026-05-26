@@ -1,41 +1,36 @@
 import { expect, test } from "@playwright/test";
 import { encode } from "next-auth/jwt";
-
-const authSecret = "playwright-placeholder-secret-that-is-long-enough";
-
-test.beforeEach(async ({ page }) => {
-  const sessionToken = await encode({
-    secret: authSecret,
-    token: {
-      name: "Playwright User",
-      email: "playwright@example.com",
-      sub: "12345",
-      githubLogin: "playwright-user",
-      githubId: "12345",
-      accessToken: "test-token",
-    },
-    maxAge: 60 * 60,
-    cookieName: "next-auth.session-token",
-  });
-
-  await page.context().addCookies([
-    {
-      name: "next-auth.session-token",
-      value: sessionToken,
-      domain: "127.0.0.1",
-      path: "/",
-      httpOnly: true,
-      sameSite: "Lax",
-      secure: false,
-      expires: Math.floor(Date.now() / 1000) + 60 * 60,
-    },
-  ]);
-
-  await page.route("**/api/auth/session", async (route) => {
+  await page.route("**/api/ai-insights**", async (route) => {
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({
-        user: { name: "Playwright User", email: "playwright@example.com" },
+        data: {
+          insights: [
+            {
+              id: "insight-1",
+              type: "productivity",
+              title: "High Consistency",
+              description: "You have coded 5 days this week!",
+              severity: "positive",
+            },
+          ],
+          trend: { direction: "up", percentage: 15 },
+          aiSummary: "Great job shipping features this week. Keep up the high standard!",
+          generatedAt: "2026-05-18T12:00:00.000Z",
+        },
+      }),
+    });
+  });
+
+  await page.route("**/api/notifications**", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        notifications: [],
+        unreadCount: 0,
+      }),
+    });
+  });
         githubLogin: "playwright-user",
         githubId: "12345",
         accessToken: "test-token",
