@@ -106,6 +106,12 @@ export default async function DashboardPage() {
       <DashboardHeader />
       <div className="mb-6 flex justify-end items-center gap-2">
         <Link
+          href="/wrapped"
+          className="rounded-lg border border-[var(--accent)] bg-[var(--accent-soft)] px-4 py-2 text-sm font-semibold text-[var(--accent)] hover:opacity-90 transition-opacity min-w-[140px] flex items-center justify-center"
+        >
+          Year in Code
+        </Link>
+        <Link
           href="/dashboard/settings"
           className="secondary-button flex min-w-[140px] items-center justify-center rounded-xl px-4 py-2 text-sm font-medium"
         >
