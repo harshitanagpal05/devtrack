@@ -7,6 +7,8 @@ import CopyLinkButton from "@/components/CopyLinkButton";
 import ThemeToggle from "@/components/ThemeToggle"; 
 import { getUserByUsername } from "@/lib/supabase";
 import { syncGitHubAchievementsForUser } from "@/lib/github-achievements";
+import PinnedReposWidget from "@/components/PinnedReposWidget";
+import { fetchPinnedRepoDetails } from "@/lib/pinned-repos";
 
 
 
@@ -32,9 +34,9 @@ async function fetchPublicProfile(
     redirect(`/u/${canonicalUsername}`);
   }
 
-  const githubToken = process.env.GITHUB_TOKEN;
+  const githubToken = process.env.GITHUB_TOKEN || "";
 
-  const [repos, contributions, streak, achievementsCache] = await Promise.all([
+  const [repos, contributions, streak, achievementsCache, spotlight] = await Promise.all([
     fetchPublicTopRepos(user.github_login, githubToken, 30),
     fetchPublicContributions(user.github_login, githubToken, 30),
     fetchPublicStreak(user.github_login, githubToken),
@@ -45,6 +47,7 @@ async function fetchPublicProfile(
           token: githubToken,
         })
       : Promise.resolve({ achievements: [], syncedAt: null, error: null }),
+    fetchPinnedRepoDetails(user.github_login, user.pinned_repos || [], githubToken),
   ]);
 
   return {
@@ -55,6 +58,7 @@ async function fetchPublicProfile(
     streak,
     achievements: achievementsCache.achievements,
     achievementsError: achievementsCache.error,
+    spotlightRepos: spotlight,
   };
 }
 
@@ -172,6 +176,13 @@ export default async function PublicProfilePage({
           <PublicStreakTracker streak={profile.streak} />
         </div>
       </div>
+
+      {/* Custom Spotlight Repositories */}
+      {profile.spotlightRepos && profile.spotlightRepos.length > 0 && (
+        <div className="mt-6">
+          <PinnedReposWidget initialRepos={profile.spotlightRepos} isPublic={true} />
+        </div>
+      )}
 
       {/* Row 2: Top repos */}
       <div className="mt-6">

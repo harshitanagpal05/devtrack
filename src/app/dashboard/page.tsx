@@ -5,6 +5,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import StreakTracker from "@/components/StreakTracker";
 import TopRepos from "@/components/TopRepos";
 import PinnedRepos from "@/components/PinnedRepos";
+import PinnedReposWidget from "@/components/PinnedReposWidget";
 import InactiveRepositoriesCard from "@/components/InactiveRepositoriesCard";
 import LanguageBreakdown from "@/components/LanguageBreakdown";
 import CIAnalytics from "@/components/CIAnalytics";
@@ -205,6 +206,11 @@ export default async function DashboardPage() {
       {/* Row 3b: Discussion activity */}
       <div className="mt-6">
         <DiscussionsWidget />
+      </div>
+
+      {/* Row 4a: Custom Pinned Spotlight repositories */}
+      <div className="mt-6">
+        <PinnedReposWidget />
       </div>
 
       {/* Row 4: Pinned repositories */}
