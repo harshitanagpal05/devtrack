@@ -66,7 +66,7 @@ export default async function HomePage() {
               rel="noopener noreferrer"
               className="secondary-button rounded-xl px-6 py-3 font-semibold"
             >
-              View on GitHub
+              Star on GitHub
             </a>
           </div>
         </div>
