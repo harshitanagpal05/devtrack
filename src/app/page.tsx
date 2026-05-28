@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -100,7 +100,7 @@ export default async function HomePage() {
 
   return (
     <div className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable}`}>
-      <LandingPage stats={stats} />
+      <LandingPage repoStats={stats} />
     </div>
   );
 }
