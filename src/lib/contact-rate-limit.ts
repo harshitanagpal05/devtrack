@@ -45,6 +45,7 @@ export function checkContactRateLimit(ip: string): ContactRateLimitResult {
 export function getContactClientIp(req: NextRequest): string {
   return (
     (req as any).ip ??
+    req.ip ??
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     req.headers.get("x-real-ip") ??
     "unknown"
