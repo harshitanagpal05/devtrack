@@ -1,6 +1,5 @@
 import { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { syncGitHubAchievementsForUser } from "./github-achievements";
 import { supabaseAdmin } from "./supabase";
 
@@ -26,24 +25,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET ?? "",
       authorization: {
         params: { scope: "read:user user:email repo read:discussion read:org" },
-      },
-    }),
-    CredentialsProvider({
-      id: "credentials",
-      name: "Mock Credentials (Dev Mode)",
-      credentials: {
-        username: { label: "GitHub Username", type: "text", placeholder: "octocat" },
-        token: { label: "GitHub Personal Access Token (PAT)", type: "password", placeholder: "ghp_..." },
-      },
-      async authorize(credentials) {
-        if (!credentials?.username) return null;
-        return {
-          id: "12345",
-          name: credentials.username,
-          email: `${credentials.username}@example.com`,
-          login: credentials.username,
-          accessToken: credentials.token || "mock-token",
-        };
       },
     }),
   ],

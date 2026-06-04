@@ -292,6 +292,7 @@ Productivity Score  : ${summary.productivityScore.current} (${scoreSign}${scoreD
                   </div>
                 </div>
               </div>
+
             )}
 
             {/* Active Days Comparison */}
