@@ -584,6 +584,7 @@ export default function GoalTracker() {
                     <Button
                       variant="ghost"
                       size="icon"
+                      className="text-[var(--muted-foreground)] hover:text-[var(--destructive)] hover:bg-[var(--destructive)]/10"
                       onClick={() => setConfirmingId(goal.id)}
                       disabled={isDeleting}
                       aria-label={`Delete goal: ${goal.title}`}
