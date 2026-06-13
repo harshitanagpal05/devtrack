@@ -9,7 +9,7 @@ const [isLoading, setIsLoading] = useState(false);
 const handleSignIn = async () => {
 if (isLoading) return;
 
-```
+
 setIsLoading(true);
 
 try {
@@ -20,7 +20,6 @@ try {
   console.error("GitHub sign-in failed:", error);
   setIsLoading(false);
 }
-```
 
 };
 
@@ -56,7 +55,7 @@ className={`         flex items-center justify-center gap-3
            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
          /> </svg>
 
-```
+
       Redirecting...
     </>
   ) : (
@@ -66,7 +65,7 @@ className={`         flex items-center justify-center gap-3
     </>
   )}
 </button>
-```
+
 
 );
 }
