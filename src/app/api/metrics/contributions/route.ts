@@ -22,7 +22,7 @@ import { supabaseAdmin } from "@/lib/supabase";
 import { isSupabaseAdminAvailable } from "@/lib/supabase-admin";
 import { resolveAppUser } from "@/lib/resolve-user";
 import { normalizeGitHubUsername } from "@/lib/validate-github-username";
-
+import { logError } from "@/lib/error-handler";
 // ─── GitHub API Rate Limiting ──────────────────────────────────────────────────
 // Unauthenticated requests: 60 req/hr (shared per IP).
 // Authenticated requests (OAuth token or PAT): 5,000 req/hr per user.
@@ -420,8 +420,11 @@ export async function GET(req: NextRequest) {
       excludedOrgs = Object.entries(orgsConfig)
         .filter(([_, enabled]) => enabled === false)
         .map(([org]) => org);
-    } catch (err) {
-      console.error("Failed to load excluded orgs config:", err);
+    } catch (error) {
+      logError(error, {
+        endpoint: "/api/metrics/contributions",
+        operation: "loadExcludedOrgsConfig",
+      });
     }
   }
 
