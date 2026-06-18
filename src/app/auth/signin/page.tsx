@@ -25,6 +25,8 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
     "The sign-in link has expired or has already been used.",
   RateLimit:
     "Too many login attempts. Please try again later.",
+  RateLimitError:
+    "Too many authentication attempts. Please wait a minute and try again.",
   Default:
     "An unexpected authentication error occurred. Please try again.",
 };
