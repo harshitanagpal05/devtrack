@@ -1,4 +1,5 @@
 import { dateDiffDays, toDateStr } from "@/lib/date-utils";
+import { GitHubRateLimitError } from "@/lib/github-fetch";
 
 export interface StreakResult {
   current: number;
@@ -164,6 +165,9 @@ export async function fetchActiveDates(
     });
 
     if (!searchRes.ok) {
+      if (searchRes.status === 403) {
+        throw new GitHubRateLimitError(null);
+      }
       throw new Error("GitHub API error");
     }
 

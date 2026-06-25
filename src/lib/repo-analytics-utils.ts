@@ -1,3 +1,5 @@
+import { GitHubAuthError } from "@/lib/github-fetch";
+
 // A valid GitHub repository identifier is exactly "owner/repo".
 const REPO_IDENTIFIER_RE =
   /^([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?)\/([a-zA-Z0-9._-]{1,100})$/;
@@ -55,6 +57,9 @@ export async function fetchTopRepos(
   const searchRes = await fetch(url, { headers, cache: "no-store" });
 
   if (!searchRes.ok) {
+    if (searchRes.status === 401) {
+      throw new GitHubAuthError();
+    }
     throw new Error("GitHub API error fetching repos");
   }
 

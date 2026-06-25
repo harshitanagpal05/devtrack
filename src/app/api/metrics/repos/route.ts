@@ -134,10 +134,7 @@ async function fetchReposForAccount(
     },
     async () => {
       // Call shared repository fetching helper
-      const repos = await fetchTopRepos(githubLogin, token, days, { orgName, excludedOrgs }).catch((err) => {
-        // Translate GITHUB_API non-ok errors
-        throw new Error("GitHub API error");
-      });
+      const repos = await fetchTopRepos(githubLogin, token, days, { orgName, excludedOrgs });
 
       const reposWithLanguages = await Promise.all(
         repos.map(async (repo) => {

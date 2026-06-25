@@ -4,6 +4,7 @@ import { checkBadgeRateLimit, getBadgeClientIp } from "@/lib/badge-rate-limit";
 import { calculateStreakFromDates, fetchActiveDates } from "@/lib/streak";
 import { logError } from "@/lib/error-handler";
 import { normalizeGitHubUsername } from "@/lib/validate-github-username";
+import { GitHubRateLimitError } from "@/lib/github-fetch";
 
 export const dynamic = "force-dynamic";
 
@@ -46,14 +47,17 @@ async function fetchStreak(
       totalActiveDays: result.totalActiveDays,
     };
   } catch (error) {
-    console.error(`GitHub API error fetching streak for ${username}:`, error);
-    return {
-      current: 0,
-      longest: 0,
-      lastCommitDate: null,
-      totalActiveDays: 0,
-      stale: true,
-    };
+    if (error instanceof GitHubRateLimitError) {
+      console.error(`GitHub API rate limit fetching streak for ${username}:`, error);
+      return {
+        current: 0,
+        longest: 0,
+        lastCommitDate: null,
+        totalActiveDays: 0,
+        stale: true,
+      };
+    }
+    throw error;
   }
 }
 
